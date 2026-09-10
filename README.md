@@ -1,6 +1,6 @@
 # Sam's Little World
 
-A tiny handmade world made to remember Sam — a very sweet tuxedo cat who
+A tiny handmade world made to remember Sam, a very sweet tuxedo cat who
 loved boxes, Swiss Chalet chicken, his sister Stella, and his family.
 
 Made for **Clara & the Kemperman family**.
@@ -18,14 +18,14 @@ A small cosy room you can potter around in for about five minutes.
   asleep on her cushion, and a blanket on the floor.
 - **Sam lives in it.** He is not controlled by the player. He wanders, sits,
   loafs, stretches, blinks, naps, sometimes leaves the room entirely and comes
-  back a little later. If you touch something he cares about, he ambles over —
+  back a little later. If you touch something he cares about, he ambles over:
   the box, the bowl, Stella's cushion.
 - **Eight memories** hidden in the objects. Each one opens a paper card with a
   line or two and real photographs taped to it. Poke the same object again and
   you get a different, quieter line.
 - **A quiet moment** after five memories: the room dims, Sam walks to the front
   and sits down with you.
-- **A secret ending** once all eight are found — the window opens onto a
+- **A secret ending** once all eight are found. The window opens onto a
   rooftop at night, Sam under the stars, Clara's own words, and a place to
   leave him a note.
 
@@ -37,7 +37,7 @@ keys and Tab move between them, Escape closes a card, focus rings are visible,
 photos have alt text, and `prefers-reduced-motion` slows the world right down
 and turns off the drifting dust.
 
-**Responsive:** the CSS is written mobile-first — the base rules describe a
+**Responsive:** the CSS is written mobile-first. The base rules describe a
 phone, and larger screens are enhancements layered on with `min-width`
 queries. The room is capped by the height actually available (`--room-max`),
 so a phone held sideways still shows the room and its HUD together without
@@ -47,7 +47,7 @@ where there is a real pointer, and the note box uses 16px text so iOS does not
 zoom when you tap it.
 
 **Sound** is off until you turn it on, and it is a small ambient chord
-synthesised in the browser — no audio files, nothing licensed from anyone.
+synthesised in the browser. No audio files, nothing licensed from anyone.
 
 ---
 
@@ -95,7 +95,7 @@ Each memory looks like this:
 ```
 
 - `lines` are revealed **one at a time**, with a pause between them. Keep them
-  short — that pacing is most of the feeling.
+  short, because that pacing is most of the feeling.
 - `encore` is optional.
 - Delete a whole block to remove a memory, or reorder them. The counter
   (`x / y memories found`) and the ending both follow the array automatically,
@@ -117,7 +117,7 @@ The same file also holds:
 | The wording around the note box | `NOTES` |
 
 > Clara's letter and the quoted lines marked `-- Clara` are her own words,
-> reproduced as she wrote them. They are the most personal thing in here —
+> reproduced as she wrote them. They are the most personal thing in here, so
 > the letter is deliberately tucked behind a **read it** button so it is never
 > thrust at anyone. Please check she is happy with it before sharing, and
 > trim anything she would rather keep private.
@@ -141,10 +141,10 @@ photos: [
 **To swap a photo:** drop the new file into `public/photos/` and change `src`.
 That is the whole job.
 
-If a photo is missing, that polaroid simply does not appear — nothing breaks,
+If a photo is missing, that polaroid simply does not appear. Nothing breaks,
 no broken-image icon. So you can add them as you find them.
 
-**To keep the site fast** (optional — big camera photos work fine, just
+**To keep the site fast** (optional, since big camera photos work fine, just
 slower): put the full-size originals in `photos-original/` and run
 
 ```bash
@@ -153,45 +153,71 @@ npm run photos      # needs: pip install Pillow
 
 which resizes everything to 1200px and writes it into `public/photos/`.
 
-### Photos still to add
+### Which photo appears where
 
-These filenames are already wired into `src/data/memories.ts` and will appear
-the moment the files exist. Save each one into `public/photos/` (or into
-`photos-original/` and run `npm run photos`):
+All the photos are in. This is just a map, for when you want to swap one out.
 
-| Filename | The photo |
+| Memory | Photos |
 |---|---|
-| `the-actual-box.jpg` | Sam sitting in the small box on the green puzzle mat |
-| `snack-cupboard.jpg` | Sam in the kitchen cupboard among the snacks |
-| `burrito.jpg` | Sam wrapped in the white duvet, only his face showing |
-| `belly.jpg` | Sam on his back by the door, getting his belly rubbed |
-| `mom-and-sam.jpg` | Mom on the couch with Sam |
-| `dad-and-sam.jpg` | Dad in the beanie holding Sam |
-| `sam-and-stella-couch.jpg` | Sam and Stella side by side on the couch |
-| `puzzle-helper.jpg` | Sam supervising the jigsaw |
-| `on-the-shoes.jpg` | Sam standing on the shoes by the front door |
+| the box | `the-actual-box`, `sexy-boy-sam` |
+| swiss chalet | `hand-jail` |
+| the cupboard | `snack-cupboard` |
+| the drawer | `loafing-in-drawer`, `on-the-shoes` |
+| stella | `sleeping-with-stella`, `sam-and-stella-couch`, `cuddling-his-sister` |
+| the family | `mom-and-sam`, `dad-and-sam`, `resting-on-moms-lap`, `puzzle-helper` |
+| clara | `clara-hugging-sam`, `good-boy-with-clara`, `clara-squeezing-him` |
+| the loaf | `burrito`, `belly`, `getting-all-the-lve`, `cuddlinghand` |
+| the ending | `resting-on-claras-lap` |
+
+`the-actual-box.jpg` is only 237x247, so it looks a little soft next to the
+others. If the full-resolution original turns up, drop it in
+`photos-original/`, run `npm run photos`, and push.
 
 ---
 
 ## Deploying it
 
-It is a plain static site — `npm run build` produces a `dist/` folder that any
+**It is already live at <https://mobinatoorani.github.io/sams-little-world/>**
+
+It is served by GitHub Pages out of a private repo, which your GitHub Pro plan
+allows. The site is reachable by anyone with the link, but the source, the
+photo originals and Clara's letter are not browsable on GitHub. The page also
+carries a `noindex` tag and a `robots.txt`, so it will not turn up in a search
+for Sam or for Clara.
+
+To publish a change, just push:
+
+```bash
+git add -A
+git commit -m "what changed"
+git push
+```
+
+`.github/workflows/deploy.yml` rebuilds and republishes on every push to
+`main`, which takes about forty seconds. `gh run list` shows progress.
+
+To remove the `noindex` and let search engines in, delete the two `robots`
+meta tags in `index.html` and `public/robots.txt`.
+
+### Somewhere else instead
+
+It is a plain static site. `npm run build` produces a `dist/` folder that any
 host will serve. `vite.config.ts` uses `base: './'`, so relative paths work
 from a subfolder too.
 
-**Netlify** — drag `dist/` onto <https://app.netlify.com/drop>. Done.
+**Netlify.** Drag `dist/` onto <https://app.netlify.com/drop>. Done.
 
-**Vercel** — `npx vercel` in this folder, or connect the repo.
+**Vercel.** Run `npx vercel` in this folder, or connect the repo.
 Build command `npm run build`, output directory `dist`.
 
-**GitHub Pages** — push the repo, then:
+**GitHub Pages.** Push the repo, then:
 
 ```bash
 npm run build
 npx gh-pages -d dist
 ```
 
-**Anywhere else** — upload the contents of `dist/` to any web host.
+**Anywhere else.** Upload the contents of `dist/` to any web host.
 
 A password is not built in. If you want it private, an unlisted URL is usually
 enough; Netlify and Vercel can both add a site password on their paid tiers.
@@ -229,8 +255,8 @@ sit: [
 ]
 ```
 
-`K` is his black fur, `W` his white, `E` an eye, `r` the inside of an ear —
-the key is `SPRITE_PALETTE` at the top of `src/game/sprites.ts`. Every row
+`K` is his black fur, `W` his white, `E` an eye, `r` the inside of an ear.
+The key is `SPRITE_PALETTE` at the top of `src/game/sprites.ts`. Every row
 must stay 18 characters wide.
 
 Only Sam, Stella, the dust and the highlights are redrawn each frame; the room
