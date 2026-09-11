@@ -69,7 +69,7 @@ npm run preview   # check the production build locally
 
 ## Changing what Sam says
 
-**Everything Sam says and shows is in one file:**
+**Everything Sam shows is in one file:**
 
 ### `src/data/memories.ts`
 
@@ -94,12 +94,8 @@ Each memory looks like this:
 }
 ```
 
-- `lines` are revealed **one at a time**, with a pause between them. Keep them
-  short, because that pacing is most of the feeling.
+- `lines` are revealed **one at a time**, with a pause between them. 
 - `encore` is optional.
-- Delete a whole block to remove a memory, or reorder them. The counter
-  (`x / y memories found`) and the ending both follow the array automatically,
-  so you never have to update a number by hand.
 - `icon` picks the little glyph in the collection strip:
   `box | bowl | bag | drawer | cat | frame | heart | blanket`.
 - `samReaction` is where Sam wanders when you touch that object:
@@ -119,8 +115,7 @@ The same file also holds:
 > Clara's letter and the quoted lines marked `-- Clara` are her own words,
 > reproduced as she wrote them. They are the most personal thing in here, so
 > the letter is deliberately tucked behind a **read it** button so it is never
-> thrust at anyone. Please check she is happy with it before sharing, and
-> trim anything she would rather keep private.
+> thrust at anyone. 
 
 ---
 
@@ -172,55 +167,6 @@ All the photos are in. This is just a map, for when you want to swap one out.
 `the-actual-box.jpg` is only 237x247, so it looks a little soft next to the
 others. If the full-resolution original turns up, drop it in
 `photos-original/`, run `npm run photos`, and push.
-
----
-
-## Deploying it
-
-**It is already live at <https://mobinatoorani.github.io/sams-little-world/>**
-
-It is served by GitHub Pages out of a private repo, which your GitHub Pro plan
-allows. The site is reachable by anyone with the link, but the source, the
-photo originals and Clara's letter are not browsable on GitHub. The page also
-carries a `noindex` tag and a `robots.txt`, so it will not turn up in a search
-for Sam or for Clara.
-
-To publish a change, just push:
-
-```bash
-git add -A
-git commit -m "what changed"
-git push
-```
-
-`.github/workflows/deploy.yml` rebuilds and republishes on every push to
-`main`, which takes about forty seconds. `gh run list` shows progress.
-
-To remove the `noindex` and let search engines in, delete the two `robots`
-meta tags in `index.html` and `public/robots.txt`.
-
-### Somewhere else instead
-
-It is a plain static site. `npm run build` produces a `dist/` folder that any
-host will serve. `vite.config.ts` uses `base: './'`, so relative paths work
-from a subfolder too.
-
-**Netlify.** Drag `dist/` onto <https://app.netlify.com/drop>. Done.
-
-**Vercel.** Run `npx vercel` in this folder, or connect the repo.
-Build command `npm run build`, output directory `dist`.
-
-**GitHub Pages.** Push the repo, then:
-
-```bash
-npm run build
-npx gh-pages -d dist
-```
-
-**Anywhere else.** Upload the contents of `dist/` to any web host.
-
-A password is not built in. If you want it private, an unlisted URL is usually
-enough; Netlify and Vercel can both add a site password on their paid tiers.
 
 ---
 
